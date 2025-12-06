@@ -1,0 +1,303 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  /* Updated Primary to Indigo for Light Mode */
+  --primary: oklch(0.488 0.243 264.376);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: oklch(1 0 0 / 0.7);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    /* Slightly stronger border and shadow for light mode separation */
+    border: 1px solid oklch(0 0 0 / 0.1);
+    box-shadow:
+      0 8px 32px 0 oklch(0 0 0 / 0.05),
+      inset 0 1px 0 0 oklch(1 0 0 / 0.2);
+  }
+
+  .dark .glass-card {
+    background: oklch(0.205 0 0 / 0.7);
+    border: 1px solid oklch(1 0 0 / 0.12);
+    box-shadow:
+      0 8px 32px 0 oklch(0 0 0 / 0.3),
+      inset 0 1px 0 0 oklch(1 0 0 / 0.05);
+  }
+
+  .glass-card-dark {
+    background: oklch(0.15 0.03 265 / 0.7);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid oklch(1 0 0 / 0.1);
+    box-shadow:
+      0 8px 32px 0 oklch(0 0 0 / 0.3),
+      inset 0 1px 0 0 oklch(1 0 0 / 0.05);
+  }
+
+  .glass-surface {
+    background: oklch(1 0 0 / 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .dark .glass-surface {
+    background: oklch(0.269 0 0 / 0.5);
+  }
+
+  .gradient-text {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, oklch(0.7 0.15 250), oklch(0.6 0.2 300));
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translate(20px, -30px) rotate(120deg);
+    opacity: 0.6;
+  }
+  66% {
+    transform: translate(-20px, 30px) rotate(240deg);
+    opacity: 0.4;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.particle-1 {
+  animation: float 10s ease-in-out infinite;
+  will-change: transform;
+}
+
+.particle-2 {
+  animation: float 15s ease-in-out infinite;
+  will-change: transform;
+}
+
+.particle-3 {
+  animation: float 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+.particle-4 {
+  animation: float 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .particle-1, .particle-2, .particle-3, .particle-4,
+  .animate-pulse-glow {
+    animation: none;
+  }
+}
+
+@supports not (backdrop-filter: blur(24px)) {
+  .glass-card {
+    background: oklch(1 0 0 / 0.95);
+  }
+  .dark .glass-card {
+    background: oklch(0.205 0 0 / 0.95);
+  }
+  .glass-card-dark {
+    background: oklch(0.15 0.03 265 / 0.95);
+  }
+}
+
+/* Search highlight glow effect for React Flow nodes */
+@keyframes search-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 5px 2px oklch(0.7 0.15 250),
+      0 0 15px 5px oklch(0.6 0.2 250 / 0.6),
+      0 0 30px 10px oklch(0.5 0.2 250 / 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 10px 4px oklch(0.75 0.18 250),
+      0 0 25px 10px oklch(0.65 0.22 250 / 0.7),
+      0 0 45px 15px oklch(0.55 0.22 250 / 0.4);
+  }
+}
+
+.react-flow__node.search-highlight > div {
+  animation: search-glow 1.5s ease-in-out infinite;
+  border-radius: inherit;
+  position: relative;
+  z-index: 10;
+}
+
+.dark .react-flow__node.search-highlight > div {
+  animation: search-glow 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .react-flow__node.search-highlight > div {
+    animation: none;
+    box-shadow:
+      0 0 10px 4px oklch(0.7 0.15 250),
+      0 0 20px 8px oklch(0.6 0.2 250 / 0.5);
+  }
+}

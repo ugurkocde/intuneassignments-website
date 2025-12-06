@@ -13,7 +13,7 @@ export function OpenSourceBadge() {
       className="fixed top-4 right-4 z-50 hidden sm:block"
     >
       <Link
-        href="https://github.com/ugurkocde/IntuneAssignments"
+        href="https://github.com/ugurkocde/intuneassignments-website"
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-2 rounded-full border border-border bg-background/80 px-4 py-2 text-sm font-medium text-foreground backdrop-blur-md transition-colors hover:bg-muted hover:text-primary shadow-sm"

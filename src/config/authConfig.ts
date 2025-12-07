@@ -48,6 +48,7 @@ export const loginRequest = {
     "DeviceManagementApps.Read.All",
     "DeviceManagementConfiguration.Read.All",
     "DeviceManagementServiceConfig.Read.All",
+    "DeviceManagementScripts.Read.All",
     "CloudPC.Read.All"
   ],
 };

@@ -46,7 +46,7 @@ export function HeroSection() {
           />
           
           <Button asChild variant="outline" size="lg" className="h-12 border-border bg-background px-8 text-base hover:bg-muted/50 cursor-pointer">
-            <Link href="https://github.com/ugurkocde/IntuneAssignments" target="_blank">
+            <Link href="https://github.com/ugurkocde/intuneassignments-website" target="_blank">
               <Github className="mr-2 h-5 w-5" />
               View on GitHub
             </Link>

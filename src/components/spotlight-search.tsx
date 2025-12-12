@@ -49,8 +49,10 @@ const usePrefersReducedMotion = () => {
 
 export function SpotlightSearch({
   className,
+  compactTrigger = false,
 }: {
   className?: string;
+  compactTrigger?: boolean;
 }) {
   const router = useRouter();
   const { instance, accounts } = useMsal();
@@ -340,7 +342,11 @@ export function SpotlightSearch({
         variant="outline"
         size="sm"
         onClick={openAndFocus}
-        className="gap-2 cursor-pointer"
+        className={cn(
+          "gap-2 cursor-pointer",
+          compactTrigger &&
+            "h-9 w-9 p-0 justify-center gap-0 sm:h-8 sm:w-auto sm:px-3 sm:gap-2",
+        )}
         aria-label="Open search"
       >
         <Search className="h-4 w-4" />
@@ -526,4 +532,5 @@ export function SpotlightSearch({
     </div>
   );
 }
+
 

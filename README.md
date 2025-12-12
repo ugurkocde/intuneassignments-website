@@ -82,7 +82,6 @@ Create a `.env` file in the root directory based on the `.env.example` (if avail
 # Entra ID Configuration
 NEXT_PUBLIC_AZURE_AD_CLIENT_ID=your-client-id-here
 NEXT_PUBLIC_AZURE_AD_TENANT_ID=your-tenant-id-here
-NEXT_PUBLIC_AZURE_AD_REDIRECT_URI=http://localhost:3000/
 ```
 
 ### 5. Run the Development Server

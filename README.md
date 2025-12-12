@@ -61,7 +61,7 @@ Register an application in the Azure Portal (or Entra admin center) to allow aut
 2. Click **New registration**.
    - Name: `Intune Assignments Visualizer`
    - Supported account types: `Accounts in this organizational directory only` (Single Tenant)
-   - Redirect URI (SPA): `http://localhost:3000`
+   - Redirect URI (SPA): `http://localhost:3000/`
 3. Note down the **Application (client) ID** and **Directory (tenant) ID**.
 4. Go to **API Permissions** and add the following **Delegated** permissions for **Microsoft Graph**:
    - `User.Read`
@@ -82,7 +82,7 @@ Create a `.env` file in the root directory based on the `.env.example` (if avail
 # Entra ID Configuration
 NEXT_PUBLIC_AZURE_AD_CLIENT_ID=your-client-id-here
 NEXT_PUBLIC_AZURE_AD_TENANT_ID=your-tenant-id-here
-NEXT_PUBLIC_AZURE_AD_REDIRECT_URI=http://localhost:3000
+NEXT_PUBLIC_AZURE_AD_REDIRECT_URI=http://localhost:3000/
 ```
 
 ### 5. Run the Development Server

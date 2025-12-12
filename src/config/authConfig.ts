@@ -2,20 +2,12 @@ import type { Configuration } from "@azure/msal-browser";
 import { LogLevel } from "@azure/msal-browser";
 import { env } from "~/env";
 
-// Dynamically determine redirect URI based on current origin
-const getRedirectUri = () => {
-  if (typeof window !== "undefined") {
-    return window.location.origin;
-  }
-  // Fallback for SSR - will be replaced on client
-  return env.NEXT_PUBLIC_AZURE_AD_REDIRECT_URI;
-};
-
 export const msalConfig: Configuration = {
   auth: {
     clientId: env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID,
     authority: `https://login.microsoftonline.com/${env.NEXT_PUBLIC_AZURE_AD_TENANT_ID}`,
-    redirectUri: getRedirectUri(),
+    // Use a relative URI so MSAL resolves it against the current browser origin.
+    redirectUri: "/",
     postLogoutRedirectUri: "/",
   },
   cache: {

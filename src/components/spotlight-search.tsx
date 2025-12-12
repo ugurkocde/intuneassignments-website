@@ -50,9 +50,11 @@ const usePrefersReducedMotion = () => {
 export function SpotlightSearch({
   className,
   compactTrigger = false,
+  triggerVariant = "header",
 }: {
   className?: string;
   compactTrigger?: boolean;
+  triggerVariant?: "header" | "hero";
 }) {
   const router = useRouter();
   const { instance, accounts } = useMsal();
@@ -335,26 +337,56 @@ export function SpotlightSearch({
   };
 
   return (
-    <div className={cn("flex items-center", className)}>
-      <Button
-        ref={triggerRef}
-        type="button"
-        variant="outline"
-        size="sm"
-        onClick={openAndFocus}
-        className={cn(
-          "gap-2 cursor-pointer",
-          compactTrigger &&
-            "h-9 w-9 p-0 justify-center gap-0 sm:h-8 sm:w-auto sm:px-3 sm:gap-2",
-        )}
-        aria-label="Open search"
-      >
-        <Search className="h-4 w-4" />
-        <span className="hidden sm:inline">Search</span>
-        <span className="hidden sm:inline text-xs text-muted-foreground">
-          ⌘/Ctrl K
-        </span>
-      </Button>
+    <div
+      className={cn(
+        "flex items-center",
+        triggerVariant === "hero" && "w-full",
+        className,
+      )}
+    >
+      {triggerVariant === "hero" ? (
+        <Button
+          ref={triggerRef}
+          type="button"
+          variant="outline"
+          size="lg"
+          onClick={openAndFocus}
+          className={cn(
+            "w-full h-12 rounded-xl justify-start px-4 gap-3 cursor-pointer",
+            "bg-background/50 backdrop-blur-sm border-muted-foreground/20",
+            "hover:bg-background/60 hover:border-muted-foreground/30",
+          )}
+          aria-label="Open quick search"
+        >
+          <Search className="h-4 w-4 text-muted-foreground" />
+          <span className="text-sm sm:text-base text-muted-foreground">
+            Search users, devices, or groups...
+          </span>
+          <span className="ml-auto hidden sm:inline text-xs text-muted-foreground font-mono">
+            ⌘/Ctrl K
+          </span>
+        </Button>
+      ) : (
+        <Button
+          ref={triggerRef}
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={openAndFocus}
+          className={cn(
+            "gap-2 cursor-pointer",
+            compactTrigger &&
+              "h-9 w-9 p-0 justify-center gap-0 sm:h-8 sm:w-auto sm:px-3 sm:gap-2",
+          )}
+          aria-label="Open search"
+        >
+          <Search className="h-4 w-4" />
+          <span className="hidden sm:inline">Search</span>
+          <span className="hidden sm:inline text-xs text-muted-foreground">
+            ⌘/Ctrl K
+          </span>
+        </Button>
+      )}
 
       {open &&
         portalTarget &&

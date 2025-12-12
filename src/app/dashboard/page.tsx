@@ -11,6 +11,7 @@ import { DashboardStats } from "~/components/dashboard/dashboard-stats";
 import { DashboardInsights } from "~/components/dashboard/dashboard-insights";
 import { PoliciesTable } from "~/components/dashboard/policies-table";
 import { Card, CardContent } from "~/components/ui/card";
+import { SpotlightSearch } from "~/components/spotlight-search";
 import { Search, Filter, Layers, Users, X } from "lucide-react";
 import {
   Select,
@@ -121,6 +122,31 @@ export default function DashboardPage() {
           <p className="text-muted-foreground">Overview of your Intune environment assignments</p>
         </div>
       </div>
+
+      {/* Hero Quick Search (Global Spotlight) */}
+      <section
+        aria-label="Quick search"
+        className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-indigo-500/10 via-background/60 to-purple-500/10 p-5 sm:p-7 backdrop-blur-sm"
+      >
+        {/* Decorative blobs */}
+        <div className="pointer-events-none absolute -top-20 -right-24 h-56 w-56 rounded-full bg-indigo-500/15 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 h-56 w-56 rounded-full bg-purple-500/15 blur-3xl" />
+
+        <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-1">
+            <div className="text-sm font-semibold tracking-tight text-foreground">
+              Quick search
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Jump to a user, device, or group. Press <span className="font-mono">⌘/Ctrl K</span> anytime.
+            </p>
+          </div>
+
+          <div className="w-full sm:max-w-xl">
+            <SpotlightSearch triggerVariant="hero" />
+          </div>
+        </div>
+      </section>
       
       <DashboardStats 
         totalPolicies={totalPolicies}

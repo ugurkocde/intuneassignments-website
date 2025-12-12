@@ -178,6 +178,17 @@
   100% { background-position: 200% 0; }
 }
 
+.progress-shimmer {
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--primary) 92%, transparent) 0%,
+    color-mix(in oklab, var(--primary-foreground) 55%, var(--primary) 45%) 50%,
+    color-mix(in oklab, var(--primary) 92%, transparent) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.2s ease-in-out infinite;
+}
+
 @keyframes float {
   0%, 100% {
     transform: translate(0, 0) rotate(0deg);
@@ -250,6 +261,10 @@
 @media (prefers-reduced-motion: reduce) {
   .particle-1, .particle-2, .particle-3, .particle-4,
   .animate-pulse-glow {
+    animation: none;
+  }
+
+  .progress-shimmer {
     animation: none;
   }
 }

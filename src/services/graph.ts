@@ -20,6 +20,7 @@ import type {
   GraphUser,
   GraphDevice,
   UserGroupMembership,
+  GraphGroup,
   SearchResult,
 } from "~/types/user";
 
@@ -512,6 +513,37 @@ export const searchDevices = async (
     return matchedDevices;
   } catch (e) {
     console.error("Error searching devices", e);
+    return [];
+  }
+};
+
+const escapeODataString = (value: string) => value.replaceAll("'", "''");
+
+export const searchGroups = async (
+  accessToken: string,
+  query: string,
+): Promise<GraphGroup[]> => {
+  if (!query || query.length < 2) return [];
+
+  const client = getGraphClient(accessToken);
+  const safeQuery = escapeODataString(query);
+
+  try {
+    const request = client
+      .api("/groups")
+      .filter(`startsWith(displayName,'${safeQuery}')`)
+      .select("id,displayName,description")
+      .top(10);
+
+    const response = await fetchWithRetry<any>(client, request, "/groups");
+    return (response.value || []).map((g: any) => ({
+      id: g.id,
+      displayName: g.displayName,
+      description: g.description,
+      "@odata.type": g["@odata.type"],
+    })) as GraphGroup[];
+  } catch (e) {
+    console.error("Error searching groups", e);
     return [];
   }
 };

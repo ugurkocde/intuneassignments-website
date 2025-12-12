@@ -11,7 +11,7 @@ import type { PolicyData } from "~/types/graph";
 
 const STATUS_COLORS: Record<string, string> = {
   "Assigned": "#22c55e",
-  "None": "#ef4444",
+  "Unassigned": "#ef4444",
 };
 
 const ASSIGNMENT_COLORS: Record<string, string> = {
@@ -92,7 +92,7 @@ export function PolicyDetailsModal({ policy, onClose, getAccessToken }: PolicyDe
   if (!policy) return null;
 
   const isAssigned = policy.assignmentStatus !== "None";
-  const statusLabel = isAssigned ? "Assigned" : "None";
+  const statusLabel = isAssigned ? "Assigned" : "Unassigned";
   const statusColor = STATUS_COLORS[statusLabel];
 
   return (

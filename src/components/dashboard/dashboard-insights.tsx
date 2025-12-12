@@ -8,9 +8,13 @@ import { useMemo } from "react";
 
 interface DashboardInsightsProps {
   policies: PolicyData[];
+  onGroupSelect?: (groupName: string) => void;
 }
 
-export function DashboardInsights({ policies }: DashboardInsightsProps) {
+export function DashboardInsights({
+  policies,
+  onGroupSelect,
+}: DashboardInsightsProps) {
   
   // 1. Health Score
   const healthMetrics = useMemo(() => {
@@ -188,7 +192,14 @@ export function DashboardInsights({ policies }: DashboardInsightsProps) {
                   </div>
               ) : (
                 topGroups.map((group, index) => (
-                  <div key={group.name} className="flex items-center justify-between group">
+                  <button
+                    key={group.name}
+                    type="button"
+                    onClick={() => onGroupSelect?.(group.name)}
+                    className="w-full flex items-center justify-between group text-left"
+                    disabled={!onGroupSelect}
+                    title={onGroupSelect ? `Filter policies by "${group.name}"` : group.name}
+                  >
                       <div className="flex items-center gap-3 overflow-hidden">
                           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
                               {index + 1}
@@ -202,7 +213,7 @@ export function DashboardInsights({ policies }: DashboardInsightsProps) {
                       <div className="text-sm font-bold text-muted-foreground bg-muted/50 px-2 py-1 rounded-md">
                           {group.value}
                       </div>
-                  </div>
+                  </button>
                 ))
               )}
            </div>

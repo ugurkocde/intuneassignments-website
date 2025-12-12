@@ -48,18 +48,23 @@ interface StageNodeProps {
 
 function StageNode({ stage, status }: StageNodeProps) {
   return (
-    <div className="flex flex-col items-center gap-3 min-w-[80px] sm:min-w-[100px]">
-      <div className={cn(
-        "rounded-full flex items-center justify-center transition-all duration-300",
-        status === 'active' && "h-12 w-12 bg-primary/10 shadow-lg shadow-primary/20 animate-pulse-glow",
-        status === 'completed' && "h-10 w-10",
-        status === 'upcoming' && "h-9 w-9 opacity-40"
-      )}>
+    <div className="flex flex-col items-center gap-2 min-w-[76px] sm:min-w-[96px]">
+      <div
+        className={cn(
+          "relative h-12 w-12 rounded-full flex items-center justify-center transition-all duration-300",
+          status === "active" && "bg-primary/10 ring-1 ring-primary/20",
+          status === "completed" && "bg-green-500/10 ring-1 ring-green-500/20",
+          status === "upcoming" && "bg-muted/20 ring-1 ring-border/40 opacity-70",
+        )}
+      >
+        {status === "active" && (
+          <div className="absolute inset-0 rounded-full bg-primary/10 animate-pulse-glow" />
+        )}
         {status === 'completed' && (
-          <CheckCircle2 className="h-8 w-8 text-green-500 animate-scale-in" strokeWidth={2} />
+          <CheckCircle2 className="relative z-10 h-8 w-8 text-green-500 animate-scale-in" strokeWidth={2} />
         )}
         {status === 'active' && (
-          <div className="relative h-8 w-8">
+          <div className="relative z-10 h-8 w-8">
             <Circle className="h-8 w-8 fill-primary/20 text-primary" strokeWidth={2} />
             <div className="absolute inset-0 flex items-center justify-center">
               <Loader2 className="h-4 w-4 animate-spin text-primary" strokeWidth={2.5} />
@@ -67,7 +72,7 @@ function StageNode({ stage, status }: StageNodeProps) {
           </div>
         )}
         {status === 'upcoming' && (
-          <Circle className="h-7 w-7 text-muted-foreground" strokeWidth={1.5} />
+          <Circle className="relative z-10 h-7 w-7 text-muted-foreground" strokeWidth={1.5} />
         )}
       </div>
       <span className={cn(
@@ -88,7 +93,7 @@ interface ConnectionLineProps {
 
 function ConnectionLine({ completed }: ConnectionLineProps) {
   return (
-    <div className="flex-1 flex items-center px-1 sm:px-2 self-stretch pt-4">
+    <div className="flex-1 flex items-center px-1 sm:px-2 self-stretch pt-3">
       <div className="w-full h-[2px] relative rounded-full overflow-hidden">
         <div className="absolute inset-0 bg-muted/40" />
         <div className={cn(
@@ -108,7 +113,7 @@ export function StageIndicator({
 
   return (
     <div className={cn(
-      "flex items-stretch justify-between w-full",
+      "flex items-center justify-between w-full",
       "max-sm:flex-col max-sm:items-center max-sm:gap-4",
       className
     )}>

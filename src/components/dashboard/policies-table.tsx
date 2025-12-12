@@ -18,7 +18,7 @@ interface PoliciesTableProps {
 
 const STATUS_COLORS: Record<string, string> = {
   "Assigned": "#22c55e",
-  "None": "#ef4444",
+  "Unassigned": "#ef4444",
 };
 
 const ASSIGNMENT_COLORS: Record<string, string> = {
@@ -228,7 +228,7 @@ export function PoliciesTable({ policies, getAccessToken }: PoliciesTableProps) 
                 <TableCell className="overflow-hidden">
                   {(() => {
                     const isAssigned = policy.assignmentStatus !== "None";
-                    const status = isAssigned ? "Assigned" : "None";
+                    const status = isAssigned ? "Assigned" : "Unassigned";
                     const color = STATUS_COLORS[status];
                     return (
                       <Badge

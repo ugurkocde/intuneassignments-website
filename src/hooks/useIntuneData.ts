@@ -344,6 +344,8 @@ export const useIntunePolicies = () => {
 
         let status: PolicyData["assignmentStatus"] = "None";
         const assignedTo: string[] = [];
+        const assignedGroupIds: string[] = [];
+        const excludedGroupIds: string[] = [];
         let platform: string | undefined = undefined;
 
         // Try to determine platform
@@ -395,6 +397,7 @@ export const useIntunePolicies = () => {
           // Resolve group names
           for (const g of groupAssignments) {
             if (g.target.groupId) {
+              assignedGroupIds.push(g.target.groupId);
               const name =
                 groupMap[g.target.groupId] || `Group ${g.target.groupId}`;
               assignedTo.push(name);
@@ -403,6 +406,7 @@ export const useIntunePolicies = () => {
 
           for (const g of exclusions) {
             if (g.target.groupId) {
+              excludedGroupIds.push(g.target.groupId);
               const name =
                 groupMap[g.target.groupId] || `Group ${g.target.groupId}`;
               assignedTo.push(`[Excluded] ${name}`);
@@ -416,6 +420,8 @@ export const useIntunePolicies = () => {
           type,
           assignmentStatus: status,
           assignedTo,
+          assignedGroupIds,
+          excludedGroupIds,
           platform,
           // Fields for Intune URL generation
           odataType: policy["@odata.type"],

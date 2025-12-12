@@ -11,7 +11,7 @@ import { DashboardStats } from "~/components/dashboard/dashboard-stats";
 import { DashboardInsights } from "~/components/dashboard/dashboard-insights";
 import { PoliciesTable } from "~/components/dashboard/policies-table";
 import { Card, CardContent } from "~/components/ui/card";
-import { Search, Filter, Layers } from "lucide-react";
+import { Search, Filter, Layers, Users, X } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -20,11 +20,15 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 
+const normalizeGroupName = (name: string) =>
+  name.startsWith("[Excluded] ") ? name.slice("[Excluded] ".length) : name;
+
 export default function DashboardPage() {
   const { data: policies, isLoading, error } = useIntunePolicies();
   const loadingState = useLoadingState();
   const { instance, accounts } = useMsal();
   const [searchTerm, setSearchTerm] = useState("");
+  const [groupSearchTerm, setGroupSearchTerm] = useState("");
   const [assignmentFilter, setAssignmentFilter] = useState<"all" | "assigned" | "unassigned">("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");
 
@@ -46,9 +50,26 @@ export default function DashboardPage() {
     return Array.from(types).sort();
   }, [allPolicies]);
 
+  const uniqueGroups = useMemo(() => {
+    const groups = new Set<string>();
+    allPolicies.forEach((p) => {
+      p.assignedTo.forEach((g) => {
+        const normalized = normalizeGroupName(g).trim();
+        if (normalized) groups.add(normalized);
+      });
+    });
+    return Array.from(groups).sort((a, b) => a.localeCompare(b));
+  }, [allPolicies]);
+
   // Filter logic (must be before early returns)
   const filteredPolicies = useMemo(() => allPolicies.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const groupTerm = groupSearchTerm.trim().toLowerCase();
+    const matchesGroup =
+      groupTerm.length === 0 ||
+      p.assignedTo.some((g) =>
+        normalizeGroupName(g).toLowerCase().includes(groupTerm),
+      );
     let matchesAssignment = true;
     if (assignmentFilter === "assigned") {
       matchesAssignment = p.assignmentStatus !== "None";
@@ -56,12 +77,14 @@ export default function DashboardPage() {
       matchesAssignment = p.assignmentStatus === "None";
     }
     const matchesType = typeFilter === "all" || p.type === typeFilter;
-    return matchesSearch && matchesAssignment && matchesType;
-  }), [allPolicies, searchTerm, assignmentFilter, typeFilter]);
+    return (
+      matchesSearch && matchesGroup && matchesAssignment && matchesType
+    );
+  }), [allPolicies, searchTerm, groupSearchTerm, assignmentFilter, typeFilter]);
 
   if (isLoading) {
     return (
-      <div className="flex h-screen w-full flex-col items-center justify-center p-4 sm:p-6 bg-background">
+      <div className="flex w-full flex-col items-center justify-center px-4 sm:px-6 py-10 min-h-[60vh]">
         <LoadingCard
           stage={loadingState.stage}
           progress={loadingState.progress}
@@ -107,7 +130,13 @@ export default function DashboardPage() {
       />
 
       {/* Consolidated Insights Section (Health, Platform, Groups, Policy Types) */}
-      <DashboardInsights policies={allPolicies} />
+      <DashboardInsights
+        policies={allPolicies}
+        onGroupSelect={(groupName) => {
+          setGroupSearchTerm(groupName);
+          setAssignmentFilter("assigned");
+        }}
+      />
 
       <div className="space-y-4 pt-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -135,6 +164,32 @@ export default function DashboardPage() {
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="pl-9 bg-background/50 backdrop-blur-sm border-muted-foreground/20 focus-visible:ring-primary glass-surface"
                     />
+                  </div>
+                  <div className="relative w-full sm:w-auto sm:min-w-[280px]">
+                    <Users className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      list="group-suggestions"
+                      placeholder="Filter by group (e.g. Marketing)..."
+                      value={groupSearchTerm}
+                      onChange={(e) => setGroupSearchTerm(e.target.value)}
+                      className="pl-9 pr-9 bg-background/50 backdrop-blur-sm border-muted-foreground/20 focus-visible:ring-primary glass-surface"
+                      aria-label="Filter policies by assigned group"
+                    />
+                    {groupSearchTerm.trim().length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => setGroupSearchTerm("")}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 hover:bg-muted/50"
+                        aria-label="Clear group filter"
+                      >
+                        <X className="h-4 w-4 text-muted-foreground" />
+                      </button>
+                    )}
+                    <datalist id="group-suggestions">
+                      {uniqueGroups.map((g) => (
+                        <option key={g} value={g} />
+                      ))}
+                    </datalist>
                   </div>
                   <Select value={assignmentFilter} onValueChange={(value: "all" | "assigned" | "unassigned") => setAssignmentFilter(value)}>
                     <SelectTrigger className="w-full sm:w-[180px] bg-background/50 backdrop-blur-sm border-muted-foreground/20 glass-surface">

@@ -5,8 +5,9 @@ import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
 import { SignOutButton } from "~/app/_components/sign-out-button";
-import { ClipboardCheck, Users, ArrowLeft } from "lucide-react";
+import { ClipboardCheck, GitGraph, ArrowLeft } from "lucide-react";
 import { Footer } from "~/components/footer";
+import { SpotlightSearch } from "~/components/spotlight-search";
 
 export default function UserAssignmentsLayout({
   children,
@@ -47,12 +48,12 @@ export default function UserAssignmentsLayout({
             >
               Dashboard
             </Link>
-             <Link
-              href="/user-assignments"
-              className={`flex items-center gap-2 transition-colors hover:text-foreground/80 ${pathname === '/user-assignments' ? 'text-foreground' : 'text-foreground/60'}`}
+            <Link
+              href="/interactive-graph"
+              className={`flex items-center gap-2 transition-colors hover:text-foreground/80 ${pathname === '/interactive-graph' ? 'text-foreground' : 'text-foreground/60'}`}
             >
-              <Users className="h-4 w-4" />
-              <span>User Assignments</span>
+              <GitGraph className="h-4 w-4" />
+              <span>Graph</span>
             </Link>
           </nav>
 
@@ -64,6 +65,7 @@ export default function UserAssignmentsLayout({
            </nav>
 
           <div className="flex flex-1 items-center justify-end space-x-4">
+            <SpotlightSearch />
             <SignOutButton />
           </div>
         </div>

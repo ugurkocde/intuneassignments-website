@@ -13,7 +13,11 @@ export interface AssignmentTarget {
 export interface Assignment {
   id: string;
   target: AssignmentTarget;
-  intent?: "required" | "available" | "uninstall" | "availableWithoutEnrollment";
+  intent?:
+    | "required"
+    | "available"
+    | "uninstall"
+    | "availableWithoutEnrollment";
 }
 
 export interface IntunePolicy {
@@ -69,6 +73,8 @@ export interface PolicyData {
     | "Endpoint Security - EPM";
   assignmentStatus: "All Users" | "All Devices" | "Group" | "None" | "Exclude";
   assignedTo: string[]; // Group names or IDs
+  assignedGroupIds: string[];
+  excludedGroupIds: string[];
   platform?: string;
   // Fields for Intune URL generation
   odataType?: string;

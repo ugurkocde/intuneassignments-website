@@ -93,7 +93,7 @@ interface ConnectionLineProps {
 
 function ConnectionLine({ completed }: ConnectionLineProps) {
   return (
-    <div className="flex-1 flex items-center px-1 sm:px-2 self-stretch pt-3">
+    <div className="flex-1 flex items-center px-1 sm:px-2 mt-6">
       <div className="w-full h-[2px] relative rounded-full overflow-hidden">
         <div className="absolute inset-0 bg-muted/40" />
         <div className={cn(
@@ -113,7 +113,8 @@ export function StageIndicator({
 
   return (
     <div className={cn(
-      "flex items-center justify-between w-full",
+      // Top-align so connector placement is based on the circle, not the combined (circle+label) height.
+      "flex items-start justify-between w-full",
       "max-sm:flex-col max-sm:items-center max-sm:gap-4",
       className
     )}>

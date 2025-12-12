@@ -19,6 +19,7 @@ import {
   ChevronUp,
   Copy,
   Check,
+  Columns2,
 } from "lucide-react";
 import type { PolicyData } from "~/types/graph";
 import { useParams } from "next/navigation";
@@ -32,6 +33,7 @@ import {
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { cn } from "~/lib/utils";
+import Link from "next/link";
 
 type AssignmentType = "group" | "user" | "device";
 
@@ -351,6 +353,12 @@ export default function AssignmentsPage({
           <Badge variant="outline" className="capitalize">
             {type}
           </Badge>
+          <Button asChild variant="outline" size="sm" className="gap-2">
+            <Link href={`/compare?items=${type}:${id}`}>
+              <Columns2 className="h-4 w-4" />
+              Compare
+            </Link>
+          </Button>
           {type !== "group" && (
             <Badge variant="outline">
               {membershipGroupCount} group membership
@@ -555,4 +563,5 @@ export default function AssignmentsPage({
     </div>
   );
 }
+
 

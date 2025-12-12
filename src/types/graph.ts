@@ -20,6 +20,21 @@ export interface Assignment {
     | "availableWithoutEnrollment";
 }
 
+export type AssignmentDetailTargetKind =
+  | "allUsers"
+  | "allDevices"
+  | "group"
+  | "exclusionGroup"
+  | "other";
+
+export interface AssignmentDetail {
+  targetKind: AssignmentDetailTargetKind;
+  groupId?: string;
+  intent?: Assignment["intent"];
+  deviceAndAppManagementAssignmentFilterId?: string;
+  deviceAndAppManagementAssignmentFilterType?: string;
+}
+
 export interface IntunePolicy {
   id: string;
   displayName: string;
@@ -75,6 +90,7 @@ export interface PolicyData {
   assignedTo: string[]; // Group names or IDs
   assignedGroupIds: string[];
   excludedGroupIds: string[];
+  assignmentDetails?: AssignmentDetail[];
   platform?: string;
   // Fields for Intune URL generation
   odataType?: string;

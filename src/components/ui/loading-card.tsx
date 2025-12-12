@@ -5,7 +5,6 @@ import { Card, CardHeader, CardTitle, CardContent } from "~/components/ui/card"
 import { Loader2, CheckCircle2 } from "lucide-react"
 import { cn } from "~/lib/utils"
 import { Badge } from "~/components/ui/badge"
-import { ScrollArea } from "~/components/ui/scroll-area"
 import { StageIndicator } from "./stage-indicator"
 import { AnimatedProgress } from "./animated-progress"
 
@@ -117,11 +116,11 @@ export function LoadingCard({ stage, progress, details }: LoadingCardProps) {
               {details}
             </p>
 
-            <ScrollArea
+            <div
               className={cn(
                 "rounded-lg",
                 // Keep the card height stable; scroll within the feed instead of pushing the page/footer.
-                "max-h-32 sm:max-h-40",
+                "max-h-32 sm:max-h-40 overflow-y-auto",
               )}
               aria-live="off"
             >
@@ -137,7 +136,7 @@ export function LoadingCard({ stage, progress, details }: LoadingCardProps) {
                   </div>
                 ))}
               </div>
-            </ScrollArea>
+            </div>
           </div>
         </div>
       </CardContent>

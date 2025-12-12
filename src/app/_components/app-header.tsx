@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowLeft, ClipboardCheck, GitGraph } from "lucide-react";
+import { ArrowLeft, ClipboardCheck, GitGraph, Columns2 } from "lucide-react";
 import { cn } from "~/lib/utils";
 import { SpotlightSearch } from "~/components/spotlight-search";
 import { SignOutButton } from "~/app/_components/sign-out-button";
@@ -20,6 +20,7 @@ export function AppHeader({ backHref, backLabel = "Back" }: AppHeaderProps) {
 
   const isDashboard = pathname === "/dashboard";
   const isGraph = pathname === "/interactive-graph";
+  const isCompare = pathname === "/compare";
 
   const pillLink = (href: string, active: boolean, label: React.ReactNode) => (
     <Link
@@ -78,6 +79,17 @@ export function AppHeader({ backHref, backLabel = "Back" }: AppHeaderProps) {
               Dashboard
             </Link>
             <Link
+              href="/compare"
+              aria-current={isCompare ? "page" : undefined}
+              className={cn(
+                "flex items-center gap-2 transition-colors hover:text-foreground/80",
+                isCompare ? "text-foreground" : "text-foreground/60",
+              )}
+            >
+              <Columns2 className="h-4 w-4" />
+              <span>Compare</span>
+            </Link>
+            <Link
               href="/interactive-graph"
               aria-current={isGraph ? "page" : undefined}
               className={cn(
@@ -101,8 +113,16 @@ export function AppHeader({ backHref, backLabel = "Back" }: AppHeaderProps) {
 
         {/* Mobile nav pills (prevents wrap + improves tap targets) */}
         <div className="sm:hidden pb-3">
-          <div className="grid w-full grid-cols-2 items-center gap-1 rounded-lg bg-muted p-1">
+          <div className="grid w-full grid-cols-3 items-center gap-1 rounded-lg bg-muted p-1">
             {pillLink("/dashboard", isDashboard, "Dashboard")}
+            {pillLink(
+              "/compare",
+              isCompare,
+              <>
+                <Columns2 className="h-4 w-4" />
+                <span>Compare</span>
+              </>,
+            )}
             {pillLink(
               "/interactive-graph",
               isGraph,

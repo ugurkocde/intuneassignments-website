@@ -18,7 +18,7 @@ import {
   fetchScripts,
   resolveGroupIds,
 } from "~/services/graph";
-import type { Assignment, PolicyData } from "~/types/graph";
+import type { Assignment, AssignmentDetail, PolicyData } from "~/types/graph";
 import { useState, useEffect } from "react";
 
 // Export loading state interface
@@ -342,6 +342,29 @@ export const useIntunePolicies = () => {
         const assignments: Assignment[] =
           manualAssignments || policy.assignments || [];
 
+        const assignmentDetails: AssignmentDetail[] = assignments.map((a) => {
+          const odata = a.target?.["@odata.type"] ?? "";
+          let targetKind: AssignmentDetail["targetKind"] = "other";
+          if (odata.includes("allLicensedUsersAssignmentTarget"))
+            targetKind = "allUsers";
+          else if (odata.includes("allDevicesAssignmentTarget"))
+            targetKind = "allDevices";
+          else if (odata.includes("groupAssignmentTarget"))
+            targetKind = "group";
+          else if (odata.includes("exclusionGroupAssignmentTarget"))
+            targetKind = "exclusionGroup";
+
+          return {
+            targetKind,
+            groupId: a.target?.groupId,
+            intent: a.intent,
+            deviceAndAppManagementAssignmentFilterId:
+              a.target?.deviceAndAppManagementAssignmentFilterId,
+            deviceAndAppManagementAssignmentFilterType:
+              a.target?.deviceAndAppManagementAssignmentFilterType,
+          };
+        });
+
         let status: PolicyData["assignmentStatus"] = "None";
         const assignedTo: string[] = [];
         const assignedGroupIds: string[] = [];
@@ -422,6 +445,7 @@ export const useIntunePolicies = () => {
           assignedTo,
           assignedGroupIds,
           excludedGroupIds,
+          assignmentDetails,
           platform,
           // Fields for Intune URL generation
           odataType: policy["@odata.type"],

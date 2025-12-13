@@ -80,10 +80,10 @@ export default function InteractiveGraphPage() {
              <div>
                 <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
                     <GitGraph className="h-6 w-6 text-primary" />
-                    Interactive Graph
+                    Assignment Explorer
                 </h1>
                 <p className="text-muted-foreground mt-1">
-                    Visualize Intune policies for users and devices
+                    Explore Intune policy assignments for users and devices
                 </p>
              </div>
            </div>

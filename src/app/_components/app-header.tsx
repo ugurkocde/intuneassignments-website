@@ -98,7 +98,7 @@ export function AppHeader({ backHref, backLabel = "Back" }: AppHeaderProps) {
               )}
             >
               <GitGraph className="h-4 w-4" />
-              <span>Graph</span>
+              <span>Explorer</span>
             </Link>
           </nav>
 
@@ -128,7 +128,7 @@ export function AppHeader({ backHref, backLabel = "Back" }: AppHeaderProps) {
               isGraph,
               <>
                 <GitGraph className="h-4 w-4" />
-                <span>Graph</span>
+                <span>Explorer</span>
               </>,
             )}
           </div>

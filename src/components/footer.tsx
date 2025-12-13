@@ -25,7 +25,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/interactive-graph" className="hover:text-foreground transition-colors">
-                  Interactive Graph
+                  Assignment Explorer
                 </Link>
               </li>
             </ul>

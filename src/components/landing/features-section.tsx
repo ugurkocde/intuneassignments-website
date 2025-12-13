@@ -6,8 +6,9 @@ import { FeatureCard } from "./feature-card";
 export function FeaturesSection() {
   const features = [
     {
-      title: "Interactive Graph Explorer",
-      description: "Visualize assignments as an interactive graph. Navigate complex relationships between policies and groups, and search nodes instantly.",
+      title: "Assignment Explorer",
+      description:
+        "Explore assignments as an interactive network. Navigate relationships between policies and groups, and search nodes instantly.",
       icon: Network,
       colorClass: "text-blue-500",
     },

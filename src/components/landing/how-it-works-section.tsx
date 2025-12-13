@@ -22,7 +22,10 @@ export function HowItWorksSection() {
   ];
 
   return (
-    <section className="relative z-10 border-y border-border bg-muted/30 px-4 py-24 sm:px-6 lg:px-8">
+    <section
+      id="how-it-works"
+      className="relative z-10 border-y border-border bg-muted/30 px-4 py-24 sm:px-6 lg:px-8 scroll-mt-24"
+    >
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">

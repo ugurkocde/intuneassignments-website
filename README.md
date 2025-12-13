@@ -2,6 +2,23 @@
 
 A web application for Intune administrators to visualize, audit, and manage Microsoft Intune policy assignments. This tool helps identify unassigned policies and visualizes relationships between users, groups, and policies.
 
+<p align="center">
+  <img src="public/screenshots/dashboard.png" alt="Dashboard screenshot" width="900" />
+</p>
+
+<table>
+  <tr>
+    <td width="50%">
+      <p><strong>Assignment Explorer</strong></p>
+      <img src="public/screenshots/explorer.png" alt="Assignment Explorer screenshot" width="100%" />
+    </td>
+    <td width="50%">
+      <p><strong>Compare</strong></p>
+      <img src="public/screenshots/compare.png" alt="Compare screenshot" width="100%" />
+    </td>
+  </tr>
+</table>
+
 ## Features
 
 ### Dashboard

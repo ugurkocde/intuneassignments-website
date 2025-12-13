@@ -8,7 +8,7 @@ import { Github, ChevronRight } from "lucide-react";
 
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-20 text-center">
+    <section className="relative flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center overflow-hidden px-4 pt-12 text-center">
       {/* Gentle background gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,theme(colors.primary.DEFAULT/0.08),transparent_40%)] pointer-events-none" />
       
@@ -30,8 +30,8 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mx-auto max-w-2xl text-lg text-muted-foreground sm:text-xl"
         >
-          Free, open-source tool to visualize and audit your Microsoft Intune policy assignments. 
-          Find gaps, explore relationships, and ensure compliance in seconds.
+          Visualize and audit your Microsoft Intune policy assignments. Spot gaps, detect drift,
+          and export reports in minutes.
         </motion.p>
         
         <motion.div
@@ -61,10 +61,13 @@ export function HeroSection() {
         transition={{ delay: 1, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
-        <div className="flex flex-col items-center gap-2 text-sm text-muted-foreground">
+        <Link
+          href="#features"
+          className="flex flex-col items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
           <span>Explore Features</span>
           <ChevronRight className="h-4 w-4 rotate-90 animate-bounce" />
-        </div>
+        </Link>
       </motion.div>
     </section>
   );

@@ -40,7 +40,11 @@ type AssignmentType = "group" | "user" | "device";
 const blobToDataUrl = (blob: Blob) =>
   new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
-    reader.onloadend = () => resolve(String(reader.result));
+    reader.onloadend = () => {
+      const result = reader.result;
+      if (typeof result === "string") return resolve(result);
+      return reject(new Error("Failed to read image"));
+    };
     reader.onerror = () => reject(new Error("Failed to read image"));
     reader.readAsDataURL(blob);
   });
@@ -67,7 +71,7 @@ export default function AssignmentsPage({
   const rawId = routeParams?.id;
 
   const type = (Array.isArray(rawType) ? rawType[0] : rawType) as AssignmentType;
-  const id = (Array.isArray(rawId) ? rawId[0] : rawId) as string;
+  const id = (Array.isArray(rawId) ? rawId[0] : rawId)!;
 
   const { instance, accounts } = useMsal();
   const { data: policies, isLoading, error } = useIntunePolicies();
